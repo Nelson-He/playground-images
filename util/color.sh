@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 ## A.M.Danischewski 2015+(c) Free - for (all (uses and
 ## modifications)) - except you must keep this notice intact.

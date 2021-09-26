@@ -107,16 +107,15 @@ source $ZSH/oh-my-zsh.sh
 # / _ \/ _ \/ -_) _ \/ _// // / / -_) __/ / ___/ / _ `/ // / _ `/ __/ _ \/ // / _ \/ _  /
 # \___/ .__/\__/_//_/___/\_,_/_/\__/_/   /_/  /_/\_,_/\_, /\_, /_/  \___/\_,_/_//_/\_,_/
 #   /_/                                             /___//___/
-# Hello, <USERNAME>:
+# Hello, tommylike:
 #    Nice to have you here exploring our courses, if you have any suggestion, please contact us via contact@openeuler.io!
 #
 # Infrastructure Team
 # Sep 26, 2021
 CURRENT_DATE=`date +"%Y-%m-%d %T"`
 cat ~/.message
-echo "Hello, $USERNAME:"
-echo "    Nice to have you here exploring our courses, if you have any suggestion, please contact us via $EMAIL!"
-echo ""
+echo "Hello, $SHELL_USER:"
+echo "    Nice to have you here exploring our courses, if you have any suggestion, please contact us via $COMMUNITY_EMAIL!"
 echo "Infrastructure Team"
 echo Current Date is: ${CURRENT_DATE}
 
