@@ -12,4 +12,4 @@ RUN yum -y update && yum -y install zsh curl git && sh -c "$(curl -fsSL https://
 RUN rm -f /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Beijing /etc/localtime
 COPY --from=BUILDER /.message /root/
 ADD ./util/.zshrc /root/
-ENTRYPOINT ["/bin/zsh"]
+ENTRYPOINT ["/usr/bin/zsh"]
