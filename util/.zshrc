@@ -116,6 +116,6 @@ CURRENT_DATE=`date +"%Y-%m-%d %T"`
 cat ~/.message
 echo "Hello, $SHELL_USER:"
 echo "    Nice to have you here exploring our courses, if you have any suggestion, please contact us via $COMMUNITY_EMAIL!"
-echo "Infrastructure Team"
+echo "Infra Team"
 echo Current Date is: ${CURRENT_DATE}
 
