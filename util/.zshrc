@@ -113,8 +113,9 @@ source $ZSH/oh-my-zsh.sh
 # Sep 26, 2021
 CURRENT_DATE=`date +"%Y-%m-%d"`
 cat ~/.message
+echo ""
 echo "Hello, $SHELL_USER:"
 echo "  Nice to meet you here, if you have any trouble, please contact: $COMMUNITY_EMAIL!"
 echo "Infra Team"
-echo Current Date is: ${CURRENT_DATE}
+echo "${CURRENT_DATE}"
 
