@@ -27,6 +27,6 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           file: ./openeuler/docker/openeuler20.03-lts-sp1/Dockerfile
-          build-args:
-            MESSAGE: "openEuler Playground 2"
+          build-args: |
+            MESSAGE: openEuler Playground 2
           tags: tommylike/openeuler-20.03-lts-sp1-base:latest
