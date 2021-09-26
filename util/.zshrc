@@ -107,9 +107,10 @@ source $ZSH/oh-my-zsh.sh
 # / _ \/ _ \/ -_) _ \/ _// // / / -_) __/ / ___/ / _ `/ // / _ `/ __/ _ \/ // / _ \/ _  /
 # \___/ .__/\__/_//_/___/\_,_/_/\__/_/   /_/  /_/\_,_/\_, /\_, /_/  \___/\_,_/_//_/\_,_/
 #   /_/                                             /___//___/
+#
 # Hello, tommylike:
 #    Nice to have you here exploring our courses, if you have any suggestion, please contact us via contact@openeuler.io!
-# Infrastructure Team
+# Infra Team
 # Sep 26, 2021
 CURRENT_DATE=`date +"%Y-%m-%d"`
 cat ~/.message
