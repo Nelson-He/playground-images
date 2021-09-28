@@ -29,4 +29,5 @@ jobs:
           file: ./openeuler/docker/openeuler20.03-lts-sp1/Dockerfile
           build-args: |
             MESSAGE="openEuler Playground"
-          tags: tommylike/openeuler-20.03-lts-sp1-base:latest
+            GOTTY_IMAGE="opensourceway/gotty:latest"
+          tags: opensourceway/openeuler-20.03-lts-sp1-base:latest
