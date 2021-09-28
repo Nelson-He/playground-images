@@ -116,7 +116,7 @@ CURRENT_DATE=`date +"%Y-%m-%d"`
 cat ~/.message
 echo ""
 echo "Hey, ${SHELL_USER:-Developer}:"
-echo "  Nice to meet you here, if you have any trouble, please contact: ${COMMUNITY_EMAIL:-contact@openeuler.io}!"
+echo "  Hope you enjoy, if you have any trouble, please contact: ${COMMUNITY_EMAIL:-contact@openeuler.io}!"
 echo "Infra Team"
 echo "${CURRENT_DATE}"
 
