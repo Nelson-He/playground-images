@@ -1,8 +1,8 @@
-ARG MESSAGE="openEuler Playground"
 ARG GOTTY_IMAGE="opensourceway/gotty:latest"
 
 FROM alpine:latest as BUILDER
 LABEL maintainer=tommylikehu@gmail.com
+ARG MESSAGE="openEuler Playground"
 
 # prepare zsh and welcome message
 ADD ./util/color.sh .
