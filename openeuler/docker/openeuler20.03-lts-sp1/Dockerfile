@@ -20,4 +20,4 @@ RUN rm -f /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Beijing /etc/localtim
 COPY --from=BUILDER /.message /root/
 COPY --from=GOTTY_LOADER /app/gotty /app/
 ADD ./util/.zshrc /root/
-ENTRYPOINT ["/usr/bin/zsh"]
+ENTRYPOINT ["/app/gotty"]
