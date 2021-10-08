@@ -112,7 +112,6 @@ source $ZSH/oh-my-zsh.sh
 #    Nice to have you here exploring our courses, if you have any suggestion, please contact us via contact@openeuler.io!
 # Infra Team
 # Sep 26, 2021
-export TERM=xterm
 CURRENT_DATE=`date +"%Y-%m-%d"`
 cat ~/.message
 echo ""

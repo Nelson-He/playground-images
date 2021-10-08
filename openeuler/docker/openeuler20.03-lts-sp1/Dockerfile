@@ -14,10 +14,25 @@ RUN figlet -w 300 -f smslant ${MESSAGE} | ./color.sh 200 > /.message
 FROM $GOTTY_IMAGE as GOTTY_LOADER
 RUN echo done
 
+# prepare user and workspace
 FROM openeuler/openeuler:20.03-lts-sp1
-RUN yum -y update && yum -y install zsh curl git && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+ARG user=coder
+ARG group=coder
+ARG uid=1000
+ARG gid=1000
+RUN yum -y update && yum -y install zsh curl git shadow-utils sudo
+RUN groupadd ${group} --gid ${uid} && useradd ${user} --uid ${uid} --gid ${gid} && \
+    echo "${user}:openEuler@osinfra" | chpasswd && gpasswd -a ${user} wheel && \
+    echo "%wheel	ALL=(ALL)	NOPASSWD: ALL" | tee -a /etc/sudoers
 RUN rm -f /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Beijing /etc/localtime
-COPY --from=BUILDER /.message /root/
-COPY --from=GOTTY_LOADER /app/gotty /app/
-ADD ./util/.zshrc /root/
+
+USER ${user}
+RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+COPY --from=BUILDER --chown=${user}:${group} /.message /home/${user}
+COPY --from=GOTTY_LOADER --chown=${user}:${group} /app/gotty /app/
+COPY --chown=${user}:${group} ./util/.zshrc /home/${user}
+
+WORKDIR /workspace
+ENV TERM=xterm
 ENTRYPOINT ["/app/gotty"]
