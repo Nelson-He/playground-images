@@ -16,6 +16,7 @@ RUN echo done
 
 # prepare user and workspace
 FROM openeuler/openeuler:20.03-lts-sp1
+ENV TINI_VERSION v0.19.0
 ARG user=coder
 ARG group=coder
 ARG uid=1000
@@ -27,12 +28,13 @@ RUN groupadd ${group} --gid ${uid} && useradd ${user} --uid ${uid} --gid ${gid} 
 RUN rm -f /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Beijing /etc/localtime
 
 USER ${user}
-RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 COPY --from=BUILDER --chown=${user}:${group} /.message /home/${user}
 COPY --from=GOTTY_LOADER --chown=${user}:${group} /app/gotty /app/
 COPY --chown=${user}:${group} ./util/.zshrc /home/${user}
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /app/tini
+RUN chmod +x /tini && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 WORKDIR /workspace
 ENV TERM=xterm
-ENTRYPOINT ["/app/gotty"]
+ENTRYPOINT ["/app/tini", "--", "/app/gotty"]
