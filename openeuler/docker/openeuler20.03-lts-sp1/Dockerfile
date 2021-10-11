@@ -33,7 +33,7 @@ COPY --from=BUILDER --chown=${user}:${group} /.message /home/${user}
 COPY --from=GOTTY_LOADER --chown=${user}:${group} /app/gotty /app/
 COPY --chown=${user}:${group} ./util/.zshrc /home/${user}
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /app/tini
-RUN chmod +x /tini && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN chmod +x /app/tini && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 WORKDIR /workspace
 ENV TERM=xterm
