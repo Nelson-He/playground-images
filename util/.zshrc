@@ -109,14 +109,17 @@ source $ZSH/oh-my-zsh.sh
 #   /_/                                             /___//___/
 #
 # Hello, tommylike:
-#    Nice to have you here exploring our courses, if you have any suggestion, please contact us via contact@openeuler.io!
+#    Nice to have you here exploring our courses within openEuler 20.03 (LTS-SP1), if you have any suggestion,
+# please contact us via contact@openeuler.io!
 # Infra Team
 # Sep 26, 2021
 CURRENT_DATE=`date +"%Y-%m-%d"`
+CURRENT_VERSION=`cat /etc/os-release | grep PRETTY_NAME | awk -F '"' '{print $2}'`
 cat ~/.message
 echo ""
 echo "Hey, ${SHELL_USER:-Developer}:"
-echo "  Hope you enjoy, if you have any trouble, please contact: ${COMMUNITY_EMAIL:-contact@openeuler.io}!"
+echo "  Nice to have you here exploring our courses within ${CURRENT_VERSION:-openEuler}, if you have any trouble,"
+echo "please contact: ${COMMUNITY_EMAIL:-contact@openeuler.io}!"
 echo "Infra Team"
 echo "${CURRENT_DATE}"
 
