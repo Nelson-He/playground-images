@@ -257,16 +257,11 @@ files:
     content: |-
       CURRENT_DATE=`date +"%Y-%m-%d"`
       CURRENT_VERSION=`cat /etc/os-release | grep PRETTY_NAME | awk -F '"' '{print $2}'`
-      printf '                     ____     __          ___  __                                     __
-  '
-      printf ' ___  ___  ___ ___  / __/_ __/ /__ ____  / _ / /__ ___ _____ ________  __ _____  ___/ /
-  '
-      printf '/ _ / _ / -_) _ / _// // / / -_) __/ / ___/ / _ `/ // / _ `/ __/ _ / // / _ / _  /
-  '
-      printf '___/ .__/__/_//_/___/_,_/_/__/_/   /_/  /_/_,_/_, /_, /_/  ___/_,_/_//_/_,_/
-  '
-      printf '   /_/                                             /___//___/
-  '
+      printf '                     ____     __          ___  __                                     __'
+      printf ' ___  ___  ___ ___  / __/_ __/ /__ ____  / _ / /__ ___ _____ ________  __ _____  ___/ /'
+      printf '/ _ / _ / -_) _ / _// // / / -_) __/ / ___/ / _ `/ // / _ `/ __/ _ / // / _ / _  /'
+      printf '___/ .__/__/_//_/___/_,_/_/__/_/   /_/  /_/_,_/_, /_, /_/  ___/_,_/_//_/_,_/'
+      printf '   /_/                                             /___//___/'
       echo ""
       echo "Hey, ${SHELL_USER:-Developer}:"
       echo "  Nice to have you here exploring our courses within ${CURRENT_VERSION:-openEuler}, if you have any trouble,"
@@ -403,7 +398,7 @@ actions:
     mkdir /sys/firmware/efi
 
     # Regenerate initramfs
-    kver=$(ls /boot/initramfs-*.img | sed -r 's#.*initramfs-(.+).img##')
+    kver=$(ls /boot/initramfs-*.img | sed -r 's#.*initramfs-(.+).img#\1#')
     dracut --kver "${kver}" -f
 
     target="$(readlink -f /etc/grub2-efi.cfg)"
@@ -463,6 +458,9 @@ actions:
     # install gotty and enable
     curl -L https://github.com/opensourceways/gotty/releases/download/v1.0.0/gotty_v1.0.0_linux_amd64.tar.gz -o ./gotty.tar.gz
     tar -xvf ./gotty.tar.gz -C /usr/local/bin && rm ./gotty.tar.gz
+    # stop ssh service
+    systemctl disable sshd
+    systemctl stop sshd
   types:
     - container
   variants:
