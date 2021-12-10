@@ -389,78 +389,78 @@ actions:
       # Disable loginuid in PAM stack
       sed -i '/^session.*pam_loginuid.so/s/^session/# session/' /etc/pam.d/*
 
-- trigger: post-files
-  action: |-
-    #!/bin/sh
-    set -eux
+  - trigger: post-files
+    action: |-
+      #!/bin/sh
+      set -eux
 
-    mount -t tmpfs tmpfs /sys/firmware
-    mkdir /sys/firmware/efi
+      mount -t tmpfs tmpfs /sys/firmware
+      mkdir /sys/firmware/efi
 
-    # Regenerate initramfs
-    kver=$(ls /boot/initramfs-*.img | sed -r 's#.*initramfs-(.+).img#\1#')
-    dracut --kver "${kver}" -f
+      # Regenerate initramfs
+      kver=$(ls /boot/initramfs-*.img | sed -r 's#.*initramfs-(.+).img#\1#')
+      dracut --kver "${kver}" -f
 
-    target="$(readlink -f /etc/grub2-efi.cfg)"
-    grub2-mkconfig -o "${target}"
+      target="$(readlink -f /etc/grub2-efi.cfg)"
+      grub2-mkconfig -o "${target}"
 
-    umount /sys/firmware
+      umount /sys/firmware
 
-    sed -i "s#root=[^ ]*#root=/dev/sda2#g" "${target}"
+      sed -i "s#root=[^ ]*#root=/dev/sda2#g" "${target}"
 
-    # Workaround for broken systemd in centos7
-    systemctl enable lxd-agent-workaround.service
-  types:
-    - vm
+      # Workaround for broken systemd in centos7
+      systemctl enable lxd-agent-workaround.service
+    types:
+      - vm
 
-- trigger: post-files
-  action: |-
-    #!/bin/sh
-    # create prepared user and password
-    GroupID=1000
-    UserID=1000
-    User=coder
-    Group=coder
+  - trigger: post-files
+    action: |-
+      #!/bin/sh
+      # create prepared user and password
+      GroupID=1000
+      UserID=1000
+      User=coder
+      Group=coder
 
-    groupadd ${Group} --gid ${GroupID} && useradd ${User} --uid ${UserID} --gid ${GroupID}
-    echo "${User}:openEuler@osinfra" | chpasswd && gpasswd -a ${User} wheel
-    echo "%wheel	ALL=(ALL)	NOPASSWD: ALL" | tee -a /etc/sudoers
-  types:
-    - vm
-    - container
-  variants:
-    - default
+      groupadd ${Group} --gid ${GroupID} && useradd ${User} --uid ${UserID} --gid ${GroupID}
+      echo "${User}:openEuler@osinfra" | chpasswd && gpasswd -a ${User} wheel
+      echo "%wheel	ALL=(ALL)	NOPASSWD: ALL" | tee -a /etc/sudoers
+    types:
+      - vm
+      - container
+    variants:
+      - default
 
-- trigger: post-files
-  action: |-
-    #!/bin/sh
-    set -eux
-    systemctl enable NetworkManager.service
-    # install oh my zsh
-    su - coder -c 'RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
-    cat /usr/local/welcome.sh | tee -a /home/coder/.zshrc > /dev/null && rm /usr/local/welcome.sh
-    # install gotty and enable
-    curl -L https://github.com/opensourceways/gotty/releases/download/v1.0.0/gotty_v1.0.0_linux_amd64.tar.gz -o ./gotty.tar.gz
-    tar -xvf ./gotty.tar.gz -C /usr/local/bin && rm ./gotty.tar.gz
-  types:
-    - vm
-  variants:
-    - default
+  - trigger: post-files
+    action: |-
+      #!/bin/sh
+      set -eux
+      systemctl enable NetworkManager.service
+      # install oh my zsh
+      su - coder -c 'RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+      cat /usr/local/welcome.sh | tee -a /home/coder/.zshrc > /dev/null && rm /usr/local/welcome.sh
+      # install gotty and enable
+      curl -L https://github.com/opensourceways/gotty/releases/download/v1.0.0/gotty_v1.0.0_linux_amd64.tar.gz -o ./gotty.tar.gz
+      tar -xvf ./gotty.tar.gz -C /usr/local/bin && rm ./gotty.tar.gz
+    types:
+      - vm
+    variants:
+      - default
 
-- trigger: post-files
-  action: |-
-    #!/bin/sh
-    set -eux
-    systemctl enable network
-    # install oh my zsh
-    su - coder -c 'RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
-    cat /usr/local/welcome.sh | tee -a /home/coder/.zshrc > /dev/null && rm /usr/local/welcome.sh
-    # install gotty and enable
-    curl -L https://github.com/opensourceways/gotty/releases/download/v1.0.0/gotty_v1.0.0_linux_amd64.tar.gz -o ./gotty.tar.gz
-    tar -xvf ./gotty.tar.gz -C /usr/local/bin && rm ./gotty.tar.gz
-    # stop ssh service
-    systemctl disable sshd
-  types:
-    - container
-  variants:
-    - default
+  - trigger: post-files
+    action: |-
+      #!/bin/sh
+      set -eux
+      systemctl enable network
+      # install oh my zsh
+      su - coder -c 'RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+      cat /usr/local/welcome.sh | tee -a /home/coder/.zshrc > /dev/null && rm /usr/local/welcome.sh
+      # install gotty and enable
+      curl -L https://github.com/opensourceways/gotty/releases/download/v1.0.0/gotty_v1.0.0_linux_amd64.tar.gz -o ./gotty.tar.gz
+      tar -xvf ./gotty.tar.gz -C /usr/local/bin && rm ./gotty.tar.gz
+      # stop ssh service
+      systemctl disable sshd
+    types:
+      - container
+    variants:
+      - default
