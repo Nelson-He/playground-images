@@ -460,7 +460,6 @@ actions:
       tar -xvf ./gotty.tar.gz -C /usr/local/bin && rm ./gotty.tar.gz
       # stop ssh service
       systemctl disable sshd
-      systemctl stop sshd
     types:
       - container
     variants:
