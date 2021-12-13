@@ -266,7 +266,7 @@ files:
       echo "Hey, ${SHELL_USER:-Developer}:"
       echo "  Nice to have you here exploring our courses within ${CURRENT_VERSION:-openEuler}, if you have any trouble,"
       echo "please contact: ${COMMUNITY_EMAIL:-contact@openeuler.io}!"
-      echo "Infra Team"
+      echo "openEuler Infra"
       echo "${CURRENT_DATE}"
 
 packages:
