@@ -257,11 +257,11 @@ files:
     content: |-
       CURRENT_DATE=`date +"%Y-%m-%d"`
       CURRENT_VERSION=`cat /etc/os-release | grep PRETTY_NAME | awk -F '"' '{print $2}'`
-      printf '                     ____     __          ___  __                                     __'
-      printf ' ___  ___  ___ ___  / __/_ __/ /__ ____  / _ / /__ ___ _____ ________  __ _____  ___/ /'
-      printf '/ _ / _ / -_) _ / _// // / / -_) __/ / ___/ / _ `/ // / _ `/ __/ _ / // / _ / _  /'
-      printf '___/ .__/__/_//_/___/_,_/_/__/_/   /_/  /_/_,_/_, /_, /_/  ___/_,_/_//_/_,_/'
-      printf '   /_/                                             /___//___/'
+      printf '                     ____     __          ___  __                                     __\n'
+      printf ' ___  ___  ___ ___  / __/_ __/ /__ ____  / _ \/ /__ ___ _____ ________  __ _____  ___/ /\n'
+      printf '/ _ \/ _ \/ -_) _ \/ _// // / / -_) __/ / ___/ / _ `/ // / _ `/ __/ _ \/ // / _ \/ _  /\n'
+      printf '\___/ .__/\__/_//_/___/\_,_/_/\__/_/   /_/  /_/\_,_/\_, /\_, /_/  \___/\_,_/_//_/\_,_/\n'
+      printf '   /_/                                             /___//___/\n'
       echo ""
       echo "Hey, ${SHELL_USER:-Developer}:"
       echo "  Nice to have you here exploring our courses within ${CURRENT_VERSION:-openEuler}, if you have any trouble,"
