@@ -442,16 +442,7 @@ actions:
       # install gotty and enable
       curl -L https://github.com/opensourceways/gotty/releases/download/v1.0.0/gotty_v1.0.0_linux_amd64.tar.gz -o ./gotty.tar.gz
       tar -xvf ./gotty.tar.gz -C /usr/local/bin && rm ./gotty.tar.gz
-    types:
-      - vm
-    variants:
-      - default
-      
-  - trigger: post-files
-    action: |-
-      #!/bin/sh
       # extract git-101 package into vm
-      set -eux
       mkdir /soft
       curl -L https://github.com/opensourceways/playground-courses/releases/download/v0.1/git-101.tar.gz -o ./git-101.tar.gz
       tar -xvf ./git-101.tar.gz -C /soft && rm ./git-101.tar.gz 
