@@ -443,9 +443,9 @@ actions:
       curl -L https://github.com/opensourceways/gotty/releases/download/v1.0.0/gotty_v1.0.0_linux_amd64.tar.gz -o ./gotty.tar.gz
       tar -xvf ./gotty.tar.gz -C /usr/local/bin && rm ./gotty.tar.gz
       # extract make-and-packaging package into vm
-      mkdir /soft
-      curl -L https://github.com/opensourceways/playground-courses/releases/download/v0.1/make-and-packaging.tar.gz -o ./makePackage.tar.gz
-      tar -zxvf ./makePackage.tar.gz -C /soft && rm ./makePackage.tar.gz 
+      cd /home/coder
+      curl -L https://github.com/opensourceways/playground-courses/releases/download/v0.1/make-and-packaging.tar.gz -o makePackage.tar.gz
+      tar -zxvf makePackage.tar.gz && chown -R coder:coder ./make-and-packaging
     types:
       - vm
     variants:
@@ -462,6 +462,10 @@ actions:
       # install gotty and enable
       curl -L https://github.com/opensourceways/gotty/releases/download/v1.0.0/gotty_v1.0.0_linux_amd64.tar.gz -o ./gotty.tar.gz
       tar -xvf ./gotty.tar.gz -C /usr/local/bin && rm ./gotty.tar.gz
+      # extract make-and-packaging package into vm
+      cd /home/coder
+      curl -L https://github.com/opensourceways/playground-courses/releases/download/v0.1/make-and-packaging.tar.gz -o makePackage.tar.gz
+      tar -zxvf makePackage.tar.gz && chown -R coder:coder ./make-and-packaging
       # stop ssh service
       systemctl disable sshd
     types:
