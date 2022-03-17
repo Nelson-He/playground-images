@@ -293,6 +293,13 @@ packages:
         - zsh
         - git
         - tar
+        - make
+        - cmake
+        - gcc
+        - automake
+        - autoconf
+        - wget
+        - rpm-build
       action: install
 
     - packages:
