@@ -447,6 +447,8 @@ actions:
       cd /home/coder
       curl -L https://github.com/opensourceways/playground-courses/releases/download/v0.1/git-101.tar.gz -o git-101.tar.gz
       tar -zxvf git-101.tar.gz && chown -R coder:coder ./git-101
+      # change default rpm source
+      sed -i 's/repo.openeuler.org/mirrors.tuna.tsinghua.edu.cn\/openeuler/g' /etc/yum.repos.d/openEuler.repo
     types:
       - vm
     variants:
@@ -467,6 +469,8 @@ actions:
       cd /home/coder
       curl -L https://github.com/opensourceways/playground-courses/releases/download/v0.1/git-101.tar.gz -o git-101.tar.gz
       tar -zxvf git-101.tar.gz && chown -R coder:coder ./git-101
+      # change default rpm source
+      sed -i 's/repo.openeuler.org/mirrors.tuna.tsinghua.edu.cn\/openeuler/g' /etc/yum.repos.d/openEuler.repo
       # stop ssh service
       systemctl disable sshd
     types:

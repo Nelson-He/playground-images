@@ -447,6 +447,8 @@ actions:
       cd /home/coder
       curl -L https://github.com/opensourceways/playground-courses/releases/download/v0.1/make-and-packaging.tar.gz -o makePackage.tar.gz
       tar -zxvf makePackage.tar.gz && chown -R coder:coder ./make-and-packaging
+      # change default rpm source
+      sed -i 's/repo.openeuler.org/mirrors.tuna.tsinghua.edu.cn\/openeuler/g' /etc/yum.repos.d/openEuler.repo
     types:
       - vm
     variants:
@@ -467,6 +469,8 @@ actions:
       cd /home/coder
       curl -L https://github.com/opensourceways/playground-courses/releases/download/v0.1/make-and-packaging.tar.gz -o makePackage.tar.gz
       tar -zxvf makePackage.tar.gz && chown -R coder:coder ./make-and-packaging
+      # change default rpm source
+      sed -i 's/repo.openeuler.org/mirrors.tuna.tsinghua.edu.cn\/openeuler/g' /etc/yum.repos.d/openEuler.repo
       # stop ssh service
       systemctl disable sshd
     types:
