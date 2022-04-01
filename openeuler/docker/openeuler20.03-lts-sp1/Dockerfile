@@ -2,7 +2,7 @@ ARG GOTTY_IMAGE="opensourceway/gotty:latest"
 
 FROM alpine:latest as BUILDER
 LABEL maintainer=tommylikehu@gmail.com
-ARG MESSAGE="openEuler Playground"
+ARG MESSAGE="Mooc Studio"
 
 # prepare zsh and welcome message
 ADD ./util/color.sh .
