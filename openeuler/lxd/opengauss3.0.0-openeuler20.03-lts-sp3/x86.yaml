@@ -266,9 +266,14 @@ files:
       echo ""
       echo "Hey, ${COMMUNITY_USER:-Developer}:"
       echo "  Nice to have you here exploring our courses within ${CURRENT_VERSION:-openEuler}, if you have any trouble,"
-      echo "please contact: ${COMMUNITY_EMAIL:-contact@openeuler.io}!"
-      echo "openEuler Infra"
+      echo "please contact: ${COMMUNITY_EMAIL:-contact@opengauss.org}!"
+      echo "openGauss Infra"
       echo "${CURRENT_DATE}"
+      export PATH
+      export GAUSSDATA=/home/coder/openGauss/data
+      export GAUSSHOME=/home/coder/openGauss/install
+      export PATH=/home/coder/openGauss/install/bin:$PATH
+      export LD_LIBRARY_PATH=/home/coder/openGauss/install/lib:$LD_LIBRARY_PATH
 
 packages:
   manager: yum
@@ -407,7 +412,9 @@ actions:
       # Set SEMMNI Min-value
       echo "3200  3200000  1000  1000" > /etc/sysctl.p
       
-      # Set init excute step for opengauss start
+      # Set init excute step for opengauss start 
+      echo "export GAUSSDATA=/home/coder/openGauss/data" >> /etc/rc.d/rc.local
+      echo "export GAUSSHOME=/home/coder/openGauss/install" >> /etc/rc.d/rc.local
       echo "export LD_LIBRARY_PATH=/home/coder/openGauss/install/lib" >> /etc/rc.d/rc.local
       echo "su - coder -c '/home/coder/openGauss/install/bin/gs_ctl start -D /home/coder/openGauss/data/'" >> /etc/rc.d/rc.local
       chmod +x /etc/rc.d/rc.local
@@ -488,7 +495,7 @@ actions:
       mkdir -p /home/coder/openGauss
       curl -L https://opengauss.obs.cn-south-1.myhuaweicloud.com/3.0.0/x86_openEuler/openGauss-Lite-3.0.0-openEuler-x86_64.tar.gz -o /home/coder/openGauss-Lite-3.0.0.tar.gz
       tar -zxvf /home/coder/openGauss-Lite-3.0.0.tar.gz -C /home/coder/openGauss && chown -R coder:coder /home/coder/openGauss && rm -f /home/coder/openGauss-Lite-3.0.0.tar.gz
-      echo "openGauss initialization password:openGauss@1234;" > /home/coder/openGauss-init-passwd.cfg && chown coder:coder /home/coder/openGauss-init-passwd.cfg
+      echo "openGauss initialization password:openGauss@1234" > /home/coder/openGauss-init.passwd && chown coder:coder /home/coder/openGauss-init.passwd
       su - coder -c "echo openGauss@1234 |sh /home/coder/openGauss/install.sh --mode single -D /home/coder/openGauss/data -R /home/coder/openGauss/install  --start"
       
       # stop ssh service
