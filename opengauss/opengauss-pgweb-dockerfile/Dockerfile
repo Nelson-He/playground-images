@@ -40,7 +40,10 @@ RUN mkdir opengauss && \
     cd ~/opengauss && \
     echo ${GSQL_INIT_PASSWD} | sh ./install.sh --mode single -D ~/openGauss/data -R ~/openGauss/install --start
 COPY bashrc .bashrc
+COPY pgweb-up.sh pgweb-up.sh
+COPY start.sh start.sh
 COPY --from=pgweb /usr/bin/pgweb /usr/bin/pgweb
+RUN sudo chmod a+x pgweb-up.sh && sudo chmod a+x .bashrc && sudo chmod a+x start.sh
 
 EXPOSE 5432 8081
-CMD ["/usr/bin/pgweb", "--bind=0.0.0.0", "--listen=8081"]
+ENTRYPOINT ["/home/gauss/start.sh"]
