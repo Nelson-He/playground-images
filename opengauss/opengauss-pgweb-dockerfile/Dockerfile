@@ -30,7 +30,7 @@ RUN \
 WORKDIR /home/gauss
 USER gauss:gauss
 
-ARG GSQL_INIT_PASSWD="openGauss@2022"
+ARG GSQL_INIT_PASSWD="openGauss2022"
 ENV LANG=en_US.utf8\
     GSQL_INIT_PASSWD=${GSQL_INIT_PASSWD}
 RUN mkdir opengauss && \
@@ -38,12 +38,19 @@ RUN mkdir opengauss && \
     tar -xf openGauss-Lite-3.0.0-openEuler-x86_64.tar.gz -C ~/opengauss && \
     rm -f openGauss-Lite-3.0.0-openEuler-x86_64.tar.gz && \
     cd ~/opengauss && \
-    echo ${GSQL_INIT_PASSWD} | sh ./install.sh --mode single -D ~/openGauss/data -R ~/openGauss/install --start
-COPY bashrc .bashrc
-COPY pgweb-up.sh pgweb-up.sh
-COPY start.sh start.sh
-COPY --from=pgweb /usr/bin/pgweb /usr/bin/pgweb
-RUN sudo chmod a+x pgweb-up.sh && sudo chmod a+x .bashrc && sudo chmod a+x start.sh
+    echo ${GSQL_INIT_PASSWD} | sh ./install.sh --mode single -D ~/openGauss/data -R ~/openGauss/install
 
-EXPOSE 5432 8081
-ENTRYPOINT ["/home/gauss/start.sh"]
+COPY postgresql.conf /home/gauss/openGauss/data/
+COPY bashrc .bashrc
+COPY --from=pgweb /usr/bin/pgweb /usr/bin/pgweb
+RUN sudo chmod a+x .bashrc
+
+# Start and create(store) opengauss user
+# RUN /home/gauss/openGauss/install/bin/gs_ctl start -D /home/gauss/openGauss/data && gsql -d postgres  -p 5432  -h 127.0.0.1  -U gauss -W openGauss2022 -c "CREATE USER opengauss with createdb IDENTIFIED BY 'openGauss2022'"
+
+# Command to start up opengauss
+# 1. /home/gauss/openGauss/install/bin/gs_ctl start -D /home/gauss/openGauss/data
+# 2. create opengauss user: gsql -d postgres  -p 5432  -h 127.0.0.1  -U gauss -W openGauss2022 -c "CREATE USER opengauss with createdb IDENTIFIED BY 'openGauss2022'"
+# Command to start up pgweb
+# 3. /usr/bin/pgweb --bind=0.0.0.0 --listen=8081 --url "postgres://opengauss:openGauss2022@0.0.0.0:5432/postgres?sslmode=disable"
+ENTRYPOINT ["bash"]

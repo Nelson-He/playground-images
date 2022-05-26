@@ -8,4 +8,3 @@ export GAUSSDATA=/home/gauss/openGauss/data
 export GAUSSHOME=/home/gauss/openGauss/install
 export PATH=/home/gauss/openGauss/install/bin:$PATH
 export LD_LIBRARY_PATH=/home/gauss/openGauss/install/lib:$LD_LIBRARY_PATH
-/home/gauss/openGauss/install/bin/gs_ctl start -D /home/gauss/openGauss/data
