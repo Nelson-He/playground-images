@@ -1,14 +1,14 @@
 FROM alpine:3.15 AS pgweb
 LABEL MAIL="dan.sosedoff@gmail.com"
 
-ARG PGWEB_ADDRESS="https://gitee.com/opengauss/openGauss-webclient/attach_files/1081909/download/openGauss-webclient_linux_amd64.zip"
+ARG PGWEB_ADDRESS="https://gitee.com/opengauss/openGauss-webclient/attach_files/1082369/download/openGauss-webclient_linux_amd64.zip"
 RUN \
   apk update && \
   apk add --no-cache ca-certificates openssl postgresql wget && \
   update-ca-certificates && \
-  rm -rf /var/cache/apk/* && \
-  cd /tmp && \
-  wget -q ${PGWEB_ADDRESS} && \
+  rm -rf /var/cache/apk/*
+RUN cd /tmp && \
+  wget ${PGWEB_ADDRESS} && \
   unzip openGauss-webclient_linux_amd64.zip -d /usr/bin && \
   mv /usr/bin/openGauss-webclient_linux_amd64 /usr/bin/pgweb && \
   rm -f openGauss-webclient_linux_amd64.zip
