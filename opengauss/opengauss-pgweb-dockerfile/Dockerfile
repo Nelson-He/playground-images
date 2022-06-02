@@ -1,7 +1,7 @@
 FROM alpine:3.15 AS pgweb
 LABEL MAIL="dan.sosedoff@gmail.com"
 
-ARG PGWEB_ADDRESS="https://github.com/sosedoff/pgweb/releases/download/v0.11.11/pgweb_linux_amd64.zip"
+ARG PGWEB_ADDRESS="https://gitee.com/opengauss/openGauss-webclient/attach_files/1081909/download/openGauss-webclient_linux_amd64.zip"
 RUN \
   apk update && \
   apk add --no-cache ca-certificates openssl postgresql wget && \
@@ -9,9 +9,9 @@ RUN \
   rm -rf /var/cache/apk/* && \
   cd /tmp && \
   wget -q ${PGWEB_ADDRESS} && \
-  unzip pgweb_linux_amd64.zip -d /usr/bin && \
-  mv /usr/bin/pgweb_linux_amd64 /usr/bin/pgweb && \
-  rm -f pgweb_linux_amd64.zip
+  unzip openGauss-webclient_linux_amd64.zip -d /usr/bin && \
+  mv /usr/bin/openGauss-webclient_linux_amd64 /usr/bin/pgweb && \
+  rm -f openGauss-webclient_linux_amd64.zip
 
 FROM openeuler/openeuler:20.03-lts-sp3
 LABEL MAIL="dakangsiji@gamil.com" \
