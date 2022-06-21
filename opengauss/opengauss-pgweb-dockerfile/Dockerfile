@@ -42,11 +42,12 @@ RUN mkdir opengauss && \
 
 COPY postgresql.conf /home/gauss/openGauss/data/
 COPY bashrc .bashrc
+COPY initdb.sql /home/gauss/initdb.sql
 COPY --from=pgweb /usr/bin/pgweb /usr/bin/pgweb
 RUN sudo chmod a+x .bashrc
 
 # Start and create(store) opengauss user
-RUN source .bashrc && /home/gauss/openGauss/install/bin/gs_ctl start -D /home/gauss/openGauss/data && /home/gauss/openGauss/install/bin/gsql -d postgres  -p 5432  -h 127.0.0.1  -U gauss -W openGauss2022 -f ./initdb.sql && /home/gauss/openGauss/install/bin/gs_ctl stop -D /home/gauss/openGauss/data
+RUN source ./.bashrc && /home/gauss/openGauss/install/bin/gs_ctl start -D /home/gauss/openGauss/data && /home/gauss/openGauss/install/bin/gsql -d postgres  -p 5432  -h 127.0.0.1  -U gauss -W openGauss2022 -f /home/gauss/initdb.sql && /home/gauss/openGauss/install/bin/gs_ctl stop -D /home/gauss/openGauss/data
 
 # Command to start up opengauss
 # 1. /home/gauss/openGauss/install/bin/gs_ctl start -D /home/gauss/openGauss/data
