@@ -1,7 +1,7 @@
 FROM alpine:3.15 AS pgweb
 LABEL MAIL="dan.sosedoff@gmail.com"
 
-ARG PGWEB_ADDRESS="https://gitee.com/opengauss/openGauss-webclient/attach_files/1082369/download/openGauss-webclient_linux_amd64.zip"
+ARG PGWEB_ADDRESS="https://gitee.com/opengauss/openGauss-webclient/releases/download/v1.0.5-tryme/openGauss-webclient_linux_amd64.zip"
 RUN \
   apk update && \
   apk add --no-cache ca-certificates openssl postgresql wget && \
@@ -34,9 +34,9 @@ ARG GSQL_INIT_PASSWD="openGauss2022"
 ENV LANG=en_US.utf8\
     GSQL_INIT_PASSWD=${GSQL_INIT_PASSWD}
 RUN mkdir opengauss && \
-    wget -q https://opengauss.obs.cn-south-1.myhuaweicloud.com/3.0.0/x86_openEuler/openGauss-Lite-3.0.0-openEuler-x86_64.tar.gz && \
-    tar -xf openGauss-Lite-3.0.0-openEuler-x86_64.tar.gz -C ~/opengauss && \
-    rm -f openGauss-Lite-3.0.0-openEuler-x86_64.tar.gz && \
+    wget -q https://opengauss.obs.cn-south-1.myhuaweicloud.com/5.0.0/x86_openEuler/openGauss-Lite-5.0.0-openEuler-x86_64.tar.gz && \
+    tar -xf openGauss-Lite-5.0.0-openEuler-x86_64.tar.gz -C ~/opengauss && \
+    rm -f openGauss-Lite-5.0.0-openEuler-x86_64.tar.gz && \
     cd ~/opengauss && \
     echo ${GSQL_INIT_PASSWD} | sh ./install.sh --mode single -D ~/openGauss/data -R ~/openGauss/install
 
